@@ -1765,6 +1765,9 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             [self depthSortViews];
             [self pushAnimationState:YES];
             [_delegate carouselDidEndScrollingAnimation:self];
+            if (self.removeItemAfterDisappear) {
+                [self.itemViews removeObjectForKey:@([self clampedIndex:self.currentItemIndex-1])];
+            }
             [self popAnimationState];
         }
     }
