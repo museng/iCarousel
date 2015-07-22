@@ -56,7 +56,7 @@
 #define SCROLL_DURATION 0.4
 #define INSERT_DURATION 0.4
 #define DECELERATE_THRESHOLD 0.1
-#define SCROLL_SPEED_THRESHOLD 2.0
+#define SCROLL_SPEED_THRESHOLD 0.1
 #define SCROLL_DISTANCE_THRESHOLD 0.1
 #define DECELERATION_MULTIPLIER 30.0
 #define FLOAT_ERROR_MARGIN 0.000001
@@ -1765,6 +1765,9 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             [self depthSortViews];
             [self pushAnimationState:YES];
             [_delegate carouselDidEndScrollingAnimation:self];
+            if (self.removeItemAfterDisappear) {
+                [self.itemViews removeObjectForKey:@([self clampedIndex:self.currentItemIndex-1])];
+            }
             [self popAnimationState];
         }
     }
